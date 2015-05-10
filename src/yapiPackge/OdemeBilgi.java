@@ -49,4 +49,32 @@ public class OdemeBilgi {
 		
 		return list;
 	}
+	
+	
+	public int ucretdondur(int kursid){
+		Connection con = null;
+		int ucret=0;
+		try{
+			Class.forName("com.mysql.jdbc.Driver"); 
+			con = Connections.getDatabaseConnectionPath();
+			String query = "select kursUcreti from Kurs where id= "+kursid;
+			Statement st = con.createStatement();
+			ResultSet rs=st.executeQuery(query);
+			ucret=rs.getInt(1);
+		}catch(ClassNotFoundException ex){
+			ex.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		finally{
+			try {
+				con.close();
+				
+			} catch (Exception e2) {
+				// TODO: handle exception
+			}
+		}
+		return ucret;
+	}
 }
